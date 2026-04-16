@@ -1,0 +1,7 @@
+{% if site_settings.announcement_text %}
+<div class="bg-blue-600 text-white text-center py-2 text-sm">
+  <a href="{{ site_settings.announcement_link }}">
+    {{ site_settings.announcement_text }}
+  </a>
+</div>
+{% endif %}
