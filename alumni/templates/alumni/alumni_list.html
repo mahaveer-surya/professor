@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="bg-gray-100 py-10 text-center">
+  <h1 class="text-3xl font-bold">Alumni/Scholars</h1>
+</section>
+<section class="py-10">
+  <div class="max-w-6xl mx-auto">
+
+    <h2 class="text-2xl font-semibold mb-6">Current Scholars</h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      {% for alum in current_alumni %}
+        <div class="bg-white shadow rounded-lg p-4 text-center">
+
+          {% if alum.photo %}
+            <img src="{{ alum.photo.url }}"
+                 class="w-24 h-24 mx-auto rounded-full mb-3">
+          {% endif %}
+
+          <h3 class="font-semibold">{{ alum.name }}</h3>
+          <p class="text-sm text-gray-600">
+            {{ alum.designation }}
+          </p>
+          <p class="text-sm text-gray-500">
+            {{ alum.organization }}
+          </p>
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+<section class="py-10 bg-gray-50">
+  <div class="max-w-6xl mx-auto">
+
+    <h2 class="text-2xl font-semibold mb-6">
+      Pass Out Scholars
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      {% for alum in passed_alumni %}
+        <div class="bg-white shadow rounded-lg p-4 text-center">
+
+          <h3 class="font-semibold">{{ alum.name }}</h3>
+
+          <p class="text-sm text-gray-600">
+            {{ alum.organization }}
+          </p>
+
+          <p class="text-xs text-gray-500 mt-2">
+            Batch: {{ alum.passing_year }}
+          </p>
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+
+
+{% endblock %}

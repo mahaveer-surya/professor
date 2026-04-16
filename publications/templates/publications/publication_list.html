@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="bg-gray-100 py-10 text-center">
+  <h1 class="text-3xl font-bold">Publications</h1>
+</section>
+<section class="py-10">
+  <div class="max-w-5xl mx-auto space-y-6">
+
+    {% for pub in page_obj %}
+      <div class="bg-white shadow rounded-lg p-5">
+
+        <h2 class="font-semibold text-lg">
+          {{ pub.title }}
+        </h2>
+
+        <p class="text-sm text-gray-600 mt-1">
+          {{ pub.authors }}
+        </p>
+
+        <p class="text-sm text-gray-500 mt-1">
+          {{ pub.journal }} | {{ pub.year }}
+        </p>
+
+        {% if pub.doi %}
+          <p class="text-xs text-gray-400 mt-1">
+            DOI: {{ pub.doi }}
+          </p>
+        {% endif %}
+
+        {% if pub.link %}
+          <a href="{{ pub.link }}" target="_blank"
+             class="text-blue-600 text-sm mt-2 inline-block">
+             View Paper →
+          </a>
+        {% endif %}
+
+      </div>
+    {% endfor %}
+
+  </div>
+</section>
+<div class="flex justify-center mt-8 space-x-2">
+
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}"
+       class="px-3 py-1 bg-gray-200 rounded">
+       Previous
+    </a>
+  {% endif %}
+
+  <span class="px-3 py-1">
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+  </span>
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}"
+       class="px-3 py-1 bg-gray-200 rounded">
+       Next
+    </a>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -1,3 +1,11 @@
+# news/admin.py
 from django.contrib import admin
+from .models import News
 
-# Register your models here.
+
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'is_active')
+    list_filter = ('date',)
+    search_fields = ('title',)
+    list_editable = ('is_active',)

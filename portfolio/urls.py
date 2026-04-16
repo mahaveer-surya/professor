@@ -22,6 +22,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
+    path('alumni/', include('alumni.urls')),
+    path('publications/', include('publications.urls')),
+    path('news/', include('news.urls')),
+    path('experience/', include('experience.urls')),
 ]
 # Serve static and media files during development
 if settings.DEBUG:
