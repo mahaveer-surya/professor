@@ -1,7 +1,54 @@
-<nav class="flex gap-6">
+<!-- <nav class="flex gap-6">
   {% for item in nav_items %}
     <a href="{{ item.url }}" class="hover:text-blue-600">
       {{ item.name }}
     </a>
   {% endfor %}
+</nav> -->
+
+<nav class="bg-white border-b">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+
+      <!-- Logo / Brand -->
+      <div class="flex-shrink-0 text-xl font-semibold">
+         <a href="/"  rel="noopener noreferrer">{{site_settings.site_name}}</a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex gap-6">
+        {% for item in nav_items %}
+          <a href="{{ item.url }}" class="text-gray-700 hover:text-blue-600 transition">
+            {{ item.name }}
+          </a>
+        {% endfor %}
+      </div>
+
+      <!-- Mobile Button -->
+      <div class="md:hidden">
+        <button id="menu-btn" class="text-gray-700 focus:outline-none">
+          ☰
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="menu" class="hidden md:hidden px-4 pb-4">
+    {% for item in nav_items %}
+      <a href="{{ item.url }}" class="block py-2 text-gray-700 hover:text-blue-600">
+        {{ item.name }}
+      </a>
+    {% endfor %}
+  </div>
 </nav>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+  });
+</script>

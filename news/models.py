@@ -7,6 +7,8 @@ class News(models.Model):
     description = models.TextField()
 
     image = models.ImageField(upload_to="news/", blank=True, null=True)
+    
+    link = models.URLField(max_length=500, blank=True, null=True)  #  added field
 
     date = models.DateField(auto_now_add=True)
 

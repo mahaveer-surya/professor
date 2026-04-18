@@ -1,73 +1,177 @@
 {% extends "base.html" %}
+{% block pagetitle %}Home Page{% endblock %}
 {% block content %}
 <!-- Default content -->
 <!-- slider  -->
-<section class="relative">
-  {% for slide in sliders %}
-    <div class="h-[500px] bg-cover bg-center flex items-center justify-center"
-         style="background-image: url('{{ slide.background_image.url }}');">
-         
-      <div class="bg-black/50 p-6 text-white text-center">
-        <h1 class="text-3xl font-bold">{{ slide.title }}</h1>
-        <p class="mt-2">{{ slide.subtitle }}</p>
+<section class="relative overflow-hidden">
+
+  <!-- Slides Wrapper -->
+  <div id="slider" class="relative h-[500px]">
+
+    {% for slide in sliders %}
+      <div class="slide absolute inset-0 bg-cover bg-center flex items-center justify-center transition-all duration-700 opacity-0 translate-x-full"
+           style="background-image: url('{{ slide.background_image.url }}');">
+        
+        <div class="bg-black/50 p-6 text-white text-center">
+          <h1 class="text-3xl font-bold">{{ slide.title }}</h1>
+          <p class="mt-2">{{ slide.subtitle }}</p>
+        </div>
+
       </div>
+    {% endfor %}
 
-    </div>
-  {% endfor %}
+  </div>
+
+  <!-- Navigation -->
+  <!-- <button onclick="prevSlide()" 
+    class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white px-4 py-2 z-10">
+    ◀
+  </button>
+
+  <button onclick="nextSlide()" 
+    class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white px-4 py-2 z-10">
+    ▶
+  </button> -->
+
+  <!-- Dots -->
+  <div id="dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+    {% for slide in sliders %}
+      <span class="dot w-3 h-3 bg-white/50 rounded-full cursor-pointer"></span>
+    {% endfor %}
+  </div>
+
 </section>
-
 <!-- about us section -->
- <section class="py-12 bg-gray-100">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+<section class="py-12 sm:py-14 lg:py-20 bg-gray-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 
+              grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
 
-    <img src="{{ about.photo.url }}" class="rounded-lg shadow">
+    <!-- Image -->
+    <div class="relative">
+      <img src="{{ about.photo.url }}" 
+           alt="{{ about.heading }}"
+           class="w-full h-auto sm:h-80 md:h-[420px] object-contain rounded-xl shadow-lg">
 
+      <!-- Optional decorative element -->
+      <div class="hidden md:block absolute -bottom-6 -left-6 w-24 h-24 bg-blue-500/10 rounded-xl"></div>
+    </div>
+
+    <!-- Content -->
     <div>
-      <h2 class="text-2xl font-bold mb-4">{{ about.heading }}</h2>
-      <p class="text-gray-700">{{ about.description }}</p>
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 leading-snug">
+        {{ about.heading }}
+      </h2>
+
+      <p class="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed mb-6">
+        {{ about.description }}
+      </p>
+
+      <!-- Optional CTA -->
+      <a href="/experience"
+         class="inline-block bg-white text-gray-600 px-5 py-2.5 rounded-lg text-sm sm:text-base font-medium hover:bg-blue-700 transition">
+        Learn More
+      </a>
     </div>
 
   </div>
 </section>
 
-<!-- 🔹 Research Scroll (Horizontal Scroll) -->
+<!--  Research Scroll (Vertical animation Scroll) -->
 
 <section class="py-10">
   <div class="max-w-6xl mx-auto">
 
-    <h2 class="text-xl font-semibold mb-4">
+    <h2 class="text-xl font-semibold mb-4 text-center">
       Latest Research Publications
     </h2>
+    <div class="w-32 h-1 bg-blue-600 mx-auto mt-3 mb-3 rounded-full"></div>
+    <div class="h-[250px] overflow-hidden relative">
 
-    <div class="flex gap-4 overflow-x-auto pb-4">
+      <div id="scrollContainer" class="flex flex-col gap-4 animate-scroll">
 
-      {% for item in research %}
-        <a href="{{ item.link }}" target="_blank"
-           class="min-w-[300px] bg-white shadow p-4 rounded-lg hover:shadow-lg transition">
+        {% for item in research %}
+          <a href="{{ item.link }}" target="_blank"
+             class="bg-white shadow p-4 rounded-lg hover:shadow-lg transition">
 
-          <p class="text-sm font-medium">
-            {{ item.title }}
-          </p>
+            <p class="text-sm font-medium">
+              {{ item.title }}
+            </p>
 
-        </a>
-      {% endfor %}
+          </a>
+        {% endfor %}
+
+        <!-- Duplicate items for seamless loop -->
+        {% for item in research %}
+          <a href="{{ item.link }}" target="_blank"
+             class="bg-white shadow p-4 rounded-lg hover:shadow-lg transition">
+
+            <p class="text-sm font-medium">
+              {{ item.title }}
+            </p>
+
+          </a>
+        {% endfor %}
+
+      </div>
 
     </div>
 
   </div>
 </section>
 
-<!-- 🔹 Contact Section (Basic) -->
+<!-- Contact Section (Basic) -->
 
-<section class="py-12 bg-gray-100">
-  <div class="max-w-4xl mx-auto text-center">
+<section class="py-12 lg:py-16 bg-gray-100">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <h2 class="text-2xl font-bold mb-4">Contact</h2>
-    <p>Email: ocsb2006@gmail.com</p>
-    <p>Phone: +91-7587401979</p>
+    <!-- Heading -->
+    <div class="text-center mb-10">
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">
+        Contact
+      </h2>
+      <div class="w-16 h-1 bg-blue-600 mx-auto mt-3 rounded-full"></div>
+    </div>
+
+    <!-- Card -->
+    <div class="bg-white rounded-xl shadow-md p-6 sm:p-8 space-y-5">
+
+      <!-- Row -->
+      <!-- <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-3">
+        <span class="text-gray-500 font-medium">School</span>
+        <span class="text-gray-800">School of Physical Sciences</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-3">
+        <span class="text-gray-500 font-medium">Department</span>
+        <span class="text-gray-800">Department of Chemistry</span>
+      </div> -->
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-3">
+        <span class="text-gray-500 font-medium">Phone</span>
+        <span class="text-gray-800">+91-7587401979</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between border-b pb-3">
+        <span class="text-gray-500 font-medium">Email</span>
+        <span class="text-gray-800 text-right sm:text-left">
+          ocsb2006@gmail.com <br>
+          subhash.banerjee79@ggu.ac.in
+        </span>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between ">
+        <span class="text-gray-500 font-medium">Address</span>
+        <span class="text-gray-800 text-right sm:text-left">
+          Dr. Subhash Banerjee. <br>
+          Associate Professor, <br>
+          Department of Chemistry<br>
+          Guru Ghasidas Vishwavidyala, Koni Bilaspur, C.G. 495009
+        </span>
+      </div>
+    </div>
 
   </div>
 </section>
 
 
 {% endblock %}
+
